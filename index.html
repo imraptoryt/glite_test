@@ -141,6 +141,173 @@
         <button class="btn" onclick="location.href='chercher-casier.html'">🔍 Rechercher un casier</button>
     </div>
 </div>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Encoder une personne</title>
+
+<style>
+    body {
+        background: #1c1c1c;
+        color: white;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* BUTTON */
+    .btn {
+        background: #7a7d52;
+        padding: 12px 25px;
+        border-radius: 12px;
+        cursor: pointer;
+        border: none;
+        color: white;
+        font-size: 16px;
+        margin: 20px;
+    }
+
+    .btn:hover {
+        background: #6e7248;
+    }
+
+    /* POPUP FORM */
+    .popup {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0,0,0,0.7);
+        display: none;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .form-container {
+        background: #2e2e2e;
+        padding: 25px;
+        border-radius: 15px;
+        width: 350px;
+    }
+
+    input, select {
+        width: 100%;
+        padding: 10px;
+        border-radius: 8px;
+        border: none;
+        margin-top: 8px;
+        margin-bottom: 15px;
+    }
+
+    .close-btn {
+        background: #b34b4b;
+        margin-top: 10px;
+    }
+
+    /* PERSON CARDS */
+    .people-list {
+        margin: 40px;
+    }
+
+    .card {
+        background: #7a7d52;
+        padding: 15px;
+        border-radius: 12px;
+        margin-bottom: 10px;
+        cursor: pointer;
+    }
+
+    .card:hover {
+        background: #6e7248;
+    }
+
+    .details {
+        display: none;
+        background: #595c3d;
+        padding: 10px;
+        border-radius: 10px;
+        margin-top: 5px;
+    }
+</style>
+
+</head>
+<body>
+
+<!-- BUTTON -->
+<button class="btn" onclick="openPopup()">➕ Encoder une personne</button>
+
+<!-- POPUP FORM -->
+<div class="popup" id="popup">
+    <div class="form-container">
+        <h2>Encoder une personne</h2>
+
+        <input type="text" id="prenom" placeholder="Prénom">
+        <input type="text" id="nom" placeholder="Nom">
+        <input type="date" id="naissance">
+        <input type="text" id="grade" placeholder="Grade / Fonction">
+
+        <button class="btn" onclick="savePerson()">Enregistrer</button>
+        <button class="btn close-btn" onclick="closePopup()">Fermer</button>
+    </div>
+</div>
+
+<!-- LIST OF PEOPLE -->
+<div class="people-list" id="peopleList"></div>
+
+
+<script>
+/* OPEN / CLOSE POPUP */
+function openPopup() {
+    document.getElementById("popup").style.display = "flex";
+}
+
+function closePopup() {
+    document.getElementById("popup").style.display = "none";
+}
+
+/* SAVE PERSON */
+function savePerson() {
+    let prenom = document.getElementById("prenom").value;
+    let nom = document.getElementById("nom").value;
+    let naissance = document.getElementById("naissance").value;
+    let grade = document.getElementById("grade").value;
+
+    if (!prenom || !nom) {
+        alert("Nom et prénom obligatoires !");
+        return;
+    }
+
+    const list = document.getElementById("peopleList");
+
+    const card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = `<strong>${prenom} ${nom}</strong>`;
+
+    const details = document.createElement("div");
+    details.className = "details";
+    details.innerHTML = `
+        <p><strong>Prénom :</strong> ${prenom}</p>
+        <p><strong>Nom :</strong> ${nom}</p>
+        <p><strong>Date de naissance :</strong> ${naissance}</p>
+        <p><strong>Grade :</strong> ${grade}</p>
+    `;
+
+    card.appendChild(details);
+
+    // open/close details when clicking card
+    card.onclick = () => {
+        details.style.display = details.style.display === "block" ? "none" : "block";
+    };
+
+    list.appendChild(card);
+
+    closePopup();
+}
+</script>
+
+</body>
+</html>
 
 </body>
 </html>
